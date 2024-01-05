@@ -27,7 +27,6 @@
         loader.load('projecteur.dae', function (collada) {
             var daeObject = collada.scene;
 
-            // Chargement de la texture
             daeObject.rotateX(-Math.PI / 2);
             daeObject.rotateZ(-Math.PI / 2);
             scene.add(daeObject);
@@ -36,15 +35,14 @@
             console.error(error);
         });
 
-        // Ajouter une lumière directionnelle
         var directionalLight = new THREE.DirectionalLight(0xffffff, 1);
-        directionalLight.position.set(1, 1, 0); // Direction du haut
+        directionalLight.position.set(1, 1, 0);
         scene.add(directionalLight);
         var directionalLight2 = new THREE.DirectionalLight(0xffffff, 1);
-        directionalLight2.position.set(-1, -1, 0); // Direction du haut
+        directionalLight2.position.set(-1, -1, 0); 
         scene.add(directionalLight2);
         var directionalLight3 = new THREE.DirectionalLight(0xffffff, 0.5);
-        directionalLight3.position.set(0, 0, 1); // Direction du haut
+        directionalLight3.position.set(0, 0, 1);
         scene.add(directionalLight3);
 
         var animate = function () {
