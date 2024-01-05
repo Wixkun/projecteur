@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projecteur</title>
+</head>
+<body>
+    <h1>Projecteur</h1>
+
+    <script src="js/three.min.js"></script>
+    <script src="js/ColladaLoader.js"></script>
+    <script src="js/OrbitControls.js"></script>
+
+    <script>
+        var scene = new THREE.Scene();
+        var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        camera.position.z = 5;
+
+        var renderer = new THREE.WebGLRenderer();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
+
+        var controls = new THREE.OrbitControls(camera, renderer.domElement);
+
+        var loader = new THREE.ColladaLoader();
+        loader.load('projecteur.dae', function (collada) {
+            var daeObject = collada.scene;
+
+            // Chargement de la texture
+            daeObject.rotateX(-Math.PI / 2);
+            daeObject.rotateZ(-Math.PI / 2);
+            scene.add(daeObject);
+            
+        }, undefined, function (error) {
+            console.error(error);
+        });
+
+        // Ajouter une lumière directionnelle
+        var directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+        directionalLight.position.set(1, 1, 0); // Direction du haut
+        scene.add(directionalLight);
+        var directionalLight2 = new THREE.DirectionalLight(0xffffff, 1);
+        directionalLight2.position.set(-1, -1, 0); // Direction du haut
+        scene.add(directionalLight2);
+        var directionalLight3 = new THREE.DirectionalLight(0xffffff, 0.5);
+        directionalLight3.position.set(0, 0, 1); // Direction du haut
+        scene.add(directionalLight3);
+
+        var animate = function () {
+            requestAnimationFrame(animate);
+            controls.update();
+            renderer.render(scene, camera);
+        };
+
+        animate();
+    </script>
+</body>
+</html>
